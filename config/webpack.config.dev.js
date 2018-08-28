@@ -204,6 +204,19 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
+          {
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader"
+            }, {
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader",
+                options: {
+                    includePaths: ["absolute/path/a", "absolute/path/b"]
+                }
+            }]
+          }
         ],
       },
       // ** STOP ** Are you adding a new loader?
