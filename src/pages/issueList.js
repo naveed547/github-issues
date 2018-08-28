@@ -19,7 +19,7 @@ class IssueList extends Component {
 				<h2 className="text-center my-5">Issues List <span className="my-5 text-center">{this.props.issues && this.props.issues.total_count ? `(${this.props.issues.total_count})` : ''} </span></h2>
 				
 				<div className="card">
-					<div className="card-header row my-0">
+					<div className="card-header row mx-0">
 						<div className="col-sm-4">
 							<InputSearchFilter filter={this.props.filter} {...this.props} />
 						</div>
