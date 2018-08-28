@@ -1,0 +1,9 @@
+export const LOAD_ISSUES_SUCCESS = 'LOAD_ISSUES_SUCCESS';
+export const LOAD_ISSUE_SUCCESS = 'LOAD_ISSUE_SUCCESS';
+export const SEARCH_ISSUES = 'SEARCH_ISSUES';
+export const FILTER_ISSUES = 'FILTER_ISSUES';
+export const SORT_ISSUES = 'SORT_ISSUES';
+export const TOGGLE_ISSUES = 'TOGGLE_ISSUES';
+export const GOTO_PAGE = 'GOTO_PAGE';
+export const GIT_USER = 'twbs';
+export const GIT_REPO = 'bootstrap';
