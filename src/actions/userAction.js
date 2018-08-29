@@ -21,7 +21,6 @@ export const sortIssues = (filter) => {
 }
 
 export const toggleIssues = (filter) => {
-  console.log(filter);
   return {
     type: types.TOGGLE_ISSUES,
     filter

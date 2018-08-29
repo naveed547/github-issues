@@ -5,13 +5,10 @@ import Routes from '../router';
 
 
 class Main extends Component {
-   constructor(props) {
-    super(props);    
-  }
   render() {
         return (
             <div className="container">
-               <h1 className="text-center">Welcome to Github issue Demo page</h1>
+               <h1 className="text-center">GitHub Issue API</h1>
                 <Routes />
             </div>
         );

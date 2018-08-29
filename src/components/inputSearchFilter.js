@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 
 class InputSearchFilter extends Component {
-  constructor(props) {
-    super(props);    
-  }
   render() {
-    console.log(this.props);
     if (this.props.issues && this.props.issues.items && this.props.issues.items.length) {
       return (
         <form id="searchForm" onSubmit={(e) => {

@@ -2,7 +2,6 @@ import axios from 'axios';
 import * as types from './actionTypes';
 
 export function loadIsuuesSuccess(issues) {
-	issues[0].data.total_count
 	let mapData = Object.assign({},issues[0].data);
 	mapData['open_count'] = issues[1].data.total_count;
 	mapData['closed_count'] = mapData.total_count - mapData.open_count;

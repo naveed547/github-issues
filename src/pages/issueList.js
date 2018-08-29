@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import InputSearchFilter from '../components/inputSearchFilter.js';
 import ListTable from '../components/listTable.js';
 import TopFilter from '../components/topFilter.js';
-import { withRouter } from 'react-router-dom';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as actions from "../actions/userAction";
 import '../components/list.scss';
 
 class IssueList extends Component {
-  constructor(props) {
-    super(props);    
-  }
   render() {
     if (this.props.issues && this.props.issues.items && this.props.issues.items.length) {
 	    return (
@@ -41,7 +37,6 @@ class IssueList extends Component {
 
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         issues: state.reposReducer,
         filter: state.userReducer
