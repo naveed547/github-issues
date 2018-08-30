@@ -1,10 +1,11 @@
+import {pageDefaults} from '../helper/helper';
 export default {
 	issues: [],
 	filter: {
-		sortBy:'',
+		sortBy:'Oldest',
 		filterBy:[],
 		searchBy:'',
-		toggleBy:'',
-		goToPage:1
+		toggleBy:'open',
+		goToPage:pageDefaults.pageNumber
 	}
 };

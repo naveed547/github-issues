@@ -1,54 +1,45 @@
 import React, { Component } from 'react';
-import InputSearchFilter from '../components/inputSearchFilter.js';
-import ListTable from '../components/listTable.js';
-import TopFilter from '../components/topFilter.js';
-import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import * as actions from "../actions/userAction";
 import '../components/list.scss';
+import {ISFMapper,TFMapper,LTMapper} from '../helper/stateActionMapper';
 
 class IssueList extends Component {
-  render() {
-    if (this.props.issues && this.props.issues.items && this.props.issues.items.length) {
-	    return (
-			<div>
-				<h2 className="text-center my-5">Issues List <span className="my-5 text-center">{this.props.issues && this.props.issues.total_count ? `(${this.props.issues.total_count})` : ''} </span></h2>
-				
-				<div className="card">
-					<div className="card-header row mx-0">
-						<div className="col-sm-4">
-							<InputSearchFilter filter={this.props.filter} {...this.props} />
+	render() {
+		if (this.props.count) {
+		    return (
+				<React.Fragment>
+					<h2 className="text-center my-5">Issues List <span className="my-5 text-center">{this.props.count ? `(${this.props.count})` : ''} </span></h2>
+					<div className="card">
+						<div className="card-header row mx-0">
+							<div className="col-sm-4">
+								<ISFMapper />
+							</div>
+							<div className="col-sm-8">
+								<TFMapper />
+							</div>
 						</div>
-						<div className="col-sm-8">
-							<TopFilter filter={this.props.filter} {...this.props} />
-						</div>
+						<LTMapper />	
 					</div>
-					<ListTable  issues={this.props.issues} {...this.props} />
-				</div>
-			</div>
-	    );
-	}else {
-		return (
-			<div className="my-5 text-center">Loading...</div>
-		)
+				</React.Fragment>
+		    );
+		}else {
+			return (
+				<div className="my-5 text-center">Loading...</div>
+			)
+		}
 	}
-  }
+
+  
 }
 
 
 const mapStateToProps = state => {
     return {
-        issues: state.reposReducer,
-        filter: state.userReducer
+        count: state.reposReducer.total_count
     }
 };
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators(actions, dispatch);
-}
-
-
-const IssueListContainer = connect(mapStateToProps, mapDispatchToProps)(IssueList);
+const IssueListContainer = connect(mapStateToProps, null)(IssueList);
 
 
 export default IssueListContainer;
