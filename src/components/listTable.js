@@ -1,33 +1,30 @@
 import React, { Component } from 'react';
 import {getTimeStamp} from '../helper/helper';
-import moment from 'moment'
+import Pagination from './pagination';
+import Issue from './issue';
 
 class IssueTable extends Component {
- constructor(props) {
-    super(props); 
-    this.listCopy = {
+ 
+  listCopy = {
     	perPage: 10,
     	totalItems: 0,
     	numPage: 0,
     	items: [],
     	pageNumber:1
-    } 
-  }
+  } 
 
   manipulateList = () => {
   	let issueCopy = this.props.issues.items.slice(); 
 
     if(this.props.filter.toggleBy) {
     	issueCopy = issueCopy.filter(issue => {
-    		console.log(issue.state+this.props.filter.toggleBy)
-    		return issue.state == this.props.filter.toggleBy
+    		return issue.state === this.props.filter.toggleBy
     	})
     }
 
     if(this.props.filter.searchBy) {
     	issueCopy = issueCopy.filter(issue => {
-    		console.log(issue.title.indexOf(this.props.filter.searchBy));
-    		return issue.title.indexOf(this.props.filter.searchBy) != -1
+    		return issue.title.toLowerCase().trim().indexOf(this.props.filter.searchBy.trim()) !== -1
     	})
     }
 
@@ -56,20 +53,19 @@ class IssueTable extends Component {
 				});
 				issueCopy = issueCopy.reverse();
 				break;
-			default: 
-        		issueCopy = issueCopy;
+			default:
+				console.log("new option added");
     	}
     }
     this.listCopy.totalItems = issueCopy.length;
     this.listCopy.numPage = new Array(Math.ceil(issueCopy.length/this.listCopy.perPage));
     this.listCopy.items = issueCopy;
     const startIndex = (this.listCopy.perPage*(this.props.filter.goToPage - 1));
-    console.log(issueCopy);
     return issueCopy.slice(startIndex+1, (startIndex+this.listCopy.perPage));
   }
 
   goToPage(i) {
-  	const startIndex = (this.listCopy.perPage*(parseInt(i) - 1));
+  	const startIndex = (this.listCopy.perPage*(parseInt(i,10) - 1));
   	this.renderIssuesList(this.listCopy.items.slice(startIndex+1, (startIndex+this.listCopy.perPage)))
   }
 
@@ -78,42 +74,15 @@ class IssueTable extends Component {
   }
 
   renderIssuesList = (issueCopy) => {    
-    
-    const elementMap = issueCopy.map((issue) => {
-      // console.log(repo.id);
-      return (
-        <li
-          className="list-group-item"
-          key={issue.number}>
-          	<div>
-				<i className={issue.state=='open' ? 'fa fa-exclamation-circle text-danger':'fa fa-check text-success'}></i>
-				<a className="issue-title" href={`/issue/${issue.number}`}>&nbsp;&nbsp;{issue.title}</a>
-			</div>              
-			<span className="issue-desc">
-				#{issue.number} {issue.state=='open' ? 'opened':'closed'} {moment(issue.state=='open' ? issue.updated_at : issue.closed_at).fromNow()} by {issue.user.login}
-			</span>
-        </li>
-      );
-    });
-    let paginationComp = [];
-    if(this.listCopy.numPage.length > 1) {
-    	for (let i = 0; i < this.listCopy.numPage.length; i++) {
-	      	paginationComp.push(
-	    		<li className={this.props.filter.goToPage == (i+1) ? 'active page-item': 'page-item'} key={i+1}>
-	    			<a className="page-link" href="javascript:void(0)" onClick={(e) => {this.props.goToPage((i+1))}}>{i+1}</a>
-	    		</li>
-	    	);
-	    }
-    }
-   
 	return (
 		<div>
 			<ul className="list-group list-group-flush">
-				{elementMap}
+				{issueCopy.map((issue) => (<Issue key={issue.number} {...issue}></Issue>))}
 			</ul>
-			<ul className="pagination justify-content-center mt-5">
-				{paginationComp}
-			</ul>
+			{<Pagination goTo={this.props.filter.goToPage} 
+				 	 			numPage={this.listCopy.numPage}
+				 	 			onClick={(index) => this.props.goToPage(index)}>
+				 	</Pagination>}
 		</div>
 	)
   }

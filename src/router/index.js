@@ -4,12 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import IssueDescriptionContainer from '../pages/issueDescription';
 import IssueListContainer from '../pages/issueList';
 class Routes extends Component {
-    
-    constructor(props) {
-        super (props);
-       
-    }
-  
     render() {
      
         return (
