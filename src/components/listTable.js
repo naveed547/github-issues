@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {getTimeStamp} from '../helper/helper';
-import moment from 'moment'
+import Pagination from './pagination';
+import Issue from './issue';
 
 class IssueTable extends Component {
  
@@ -73,42 +74,15 @@ class IssueTable extends Component {
   }
 
   renderIssuesList = (issueCopy) => {    
-    
-    const elementMap = issueCopy.map((issue) => {
-      // console.log(repo.id);
-      return (
-        <li
-          className="list-group-item"
-          key={issue.number}>
-          	<div>
-				<i className={issue.state === 'open' ? 'fa fa-exclamation-circle text-danger':'fa fa-check text-success'}></i>
-				<a className="issue-title" href={`/issue/${issue.number}`}>&nbsp;&nbsp;{issue.title}</a>
-			</div>              
-			<span className="issue-desc">
-				#{issue.number} {issue.state ==='open' ? 'opened':'closed'} {moment(issue.state === 'open' ? issue.updated_at : issue.closed_at).fromNow()} by {issue.user.login}
-			</span>
-        </li>
-      );
-    });
-    let paginationComp = [];
-    if(this.listCopy.numPage.length > 1) {
-    	for (let i = 0; i < this.listCopy.numPage.length; i++) {
-	      	paginationComp.push(
-	    		<li className={this.props.filter.goToPage === (i+1) ? 'active page-item': 'page-item'} key={i+1}>
-	    			<a className="page-link" onClick={(e) => {e.preventDefault();this.props.goToPage((i+1))}}>{i+1}</a>
-	    		</li>
-	    	);
-	    }
-    }
-   
 	return (
 		<div>
 			<ul className="list-group list-group-flush">
-				{elementMap}
+				{issueCopy.map((issue) => (<Issue key={issue.number} {...issue}></Issue>))}
 			</ul>
-			<ul className="pagination justify-content-center mt-5">
-				{paginationComp}
-			</ul>
+			{<Pagination goTo={this.props.filter.goToPage} 
+				 	 			numPage={this.listCopy.numPage}
+				 	 			onClick={(index) => this.props.goToPage(index)}>
+				 	</Pagination>}
 		</div>
 	)
   }
