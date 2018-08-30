@@ -8,7 +8,6 @@ class Routes extends Component {
      
         return (
             <Router>
-             
                  <div className="container">
                     <Switch>
                         <Route path="/"   exact component={IssueListContainer} />

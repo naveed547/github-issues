@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-const Issue = ({ number, state, title, user, closed_at, updated_at }) => (
+const Issue = ({ number, state, title, user, closed_at, updated_at, comments }) => (
   <li
       className="list-group-item"
       key={number}>
@@ -12,7 +12,9 @@ const Issue = ({ number, state, title, user, closed_at, updated_at }) => (
 		</div>              
 		<span className="issue-desc">
 			#{number} {state ==='open' ? 'opened':'closed'} {moment(state === 'open' ? updated_at : closed_at).fromNow()} by {user.login}
+			<i className="fa fa-comments pl-1"></i> {comments}
 		</span>
+		<span className="pl-2">Last updated at {moment(updated_at).fromNow()}</span>
     </li>
 )
 
@@ -28,7 +30,8 @@ Issue.propTypes = {
 		PropTypes.string.isRequired,
 		PropTypes.instanceOf(Date).isRequired
 	]),
-	user: PropTypes.object.isRequired
+	user: PropTypes.object.isRequired,
+	comments: PropTypes.number.isRequired
 }
 
 export default Issue

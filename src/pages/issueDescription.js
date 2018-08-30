@@ -53,8 +53,7 @@ class IssueDescription extends Component {
 
 const mapStateToProps = state => {
     return {
-        issues: state.reposReducer,
-        filter: state.userReducer
+        issues: state.reposReducer
     }
 };
 

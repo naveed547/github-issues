@@ -4,12 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './App.scss';
 
-import MainApp from "./pages/main" ;
-
 import {Provider} from "react-redux";
 import configureStore from "./store";
 
 import { loadIssues,loadIssue } from './actions/repoAction';
+import Routes from './router';
 
 const store = configureStore();
 const pathName = store.getState().router.location.pathname;
@@ -23,7 +22,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <MainApp />
+        <div className="container">
+           <h1 className="text-center">GitHub Issue API</h1>
+            <Routes />
+        </div>
       </Provider>
     );
   }
