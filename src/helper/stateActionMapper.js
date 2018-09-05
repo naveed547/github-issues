@@ -29,8 +29,8 @@ class stateActionMapper {
   mapStateToPropsTF (state) {
     return {
         issuesCount: {
-          open_count: state.reposReducer.open_count,
-          closed_count: state.reposReducer.closed_count
+          open_count: state.reposReducer.repoData.open_count,
+          closed_count: state.reposReducer.repoData.closed_count
         },
         sortFilter: state.userReducer.sortBy,
         toggleFilter: state.userReducer.toggleBy
@@ -46,7 +46,7 @@ class stateActionMapper {
   }
 
   mapStateToPropsLT = (state) => {
-    let filteredIssues = this.getFilteredIssue(state.reposReducer.items,state.userReducer);
+    let filteredIssues = this.getFilteredIssue(state.reposReducer.repoData.items,state.userReducer);
     let startIndex = (pageDefaults.perPage*(state.userReducer.goToPage - 1));
     return {
         numPage: this.getNoOfPages(filteredIssues),
