@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import * as actions from "../actions/userAction";
+import * as actions from "../actions/repoAction";
 import moment from 'moment';
 import '../components/description.scss';
 class IssueDescription extends Component {
   renderIssue = () => {
-      let issue = this.props.issues; 
+      let issue = this.props.repoDetails.repoData; 
       return (
 		<div className="card">
 			<div className="card-header row mx-0">
@@ -33,12 +33,19 @@ class IssueDescription extends Component {
 		</div>
       );
   }
+  componentDidMount() {
+		this.props.loadIssue(this.props.match.params.issueId,this.props.repoDetails.userName,this.props.repoDetails.currentRepo);
+  }
   render() {
-  	if (this.props.issues && this.props.issues.number && this.props.location.pathname.split("/")[1] ==='issue') {
+  	if (this.props.repoDetails 
+  		&& this.props.repoDetails.repoData 
+  		&& this.props.repoDetails.repoData.number 
+  		&& this.props.location.pathname.split("/")[1] ==='issue') {
 	    return (
 	    	<div>
-
 	      		<h2 className="my-5 text-center">Issue Description</h2>
+	      		User Name: {this.props.repoDetails.userName} <br/>
+	      		Repo Name: {this.props.repoDetails.currentRepo} <br/>
 	      		{this.renderIssue()}
 	      	</div>
 	    );
@@ -53,7 +60,7 @@ class IssueDescription extends Component {
 
 const mapStateToProps = state => {
     return {
-        issues: state.reposReducer
+        repoDetails: state.reposReducer
     }
 };
 
