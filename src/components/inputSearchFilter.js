@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 
-const InputSearchFilter = ({search}) => {
+export const InputSearchFilter = ({search}) => {
 
   return (
     <form id="searchForm" onSubmit={(e) => { e.preventDefault();}}>

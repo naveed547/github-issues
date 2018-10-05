@@ -1,12 +1,12 @@
 import {createStore, applyMiddleware, compose} from "redux";
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk'
-// import {browserHistory} from "react-router-dom";
+//import {browserHistory} from "react-router-dom";
 import { createBrowserHistory } from 'history';
 
 import rootReducer from "./reducers";
 
-export const history = createBrowserHistory();
+export const history=createBrowserHistory();
 function configureStoreProd(initialState) {
   const middlewares = [
     // Add other middleware on this line...
