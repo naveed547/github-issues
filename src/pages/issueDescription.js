@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import * as actions from "../actions/repoAction";
 import moment from 'moment';
 import '../components/description.scss';
-class IssueDescription extends Component {
+export class IssueDescription extends Component {
   renderIssue = () => {
       let issue = this.props.repoDetails.repoData; 
       return (
@@ -34,13 +34,12 @@ class IssueDescription extends Component {
       );
   }
   componentDidMount() {
-		this.props.loadIssue(this.props.match.params.issueId,this.props.repoDetails.userName,this.props.repoDetails.currentRepo);
+		this.props.loadIssue(this.props.match.params.issueId,this.props.match.params.user,this.props.match.params.repo);
   }
   render() {
   	if (this.props.repoDetails 
   		&& this.props.repoDetails.repoData 
-  		&& this.props.repoDetails.repoData.number 
-  		&& this.props.location.pathname.split("/")[1] ==='issue') {
+  		&& this.props.repoDetails.repoData.number) {
 	    return (
 	    	<div>
 	      		<h2 className="my-5 text-center">Issue Description</h2>

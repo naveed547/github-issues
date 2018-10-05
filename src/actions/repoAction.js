@@ -34,12 +34,14 @@ export function setUserName(userName) {
 }
 
 export function loadIssues(repoName,userName) {
-	return async function(dispatch) {
+	return function(dispatch) {
 		let arr =[];
 		arr.push(axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}+type:issue`));
 		arr.push(axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}+type:issue+state:open`));
-		let result = await axios.all(arr);
-		dispatch(loadIsuuesSuccess(result,repoName));
+		return axios.all(arr).then(result => {
+			//console.log(result);
+			dispatch(loadIsuuesSuccess(result,repoName));
+		});
 		/*axios.get(`https://api.github.com/search/issues?q=repo:${types.GIT_USER}/${types.GIT_REPO}+type:issue`)
 		.then((response) => {
 			axios.get(`https://api.github.com/users/${types.GIT_USER}/repos`)

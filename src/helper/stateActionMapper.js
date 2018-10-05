@@ -27,6 +27,7 @@ class stateActionMapper {
   }
 
   mapStateToPropsTF (state) {
+    //console.log(state);
     return {
         issuesCount: {
           open_count: state.reposReducer.repoData.open_count,
